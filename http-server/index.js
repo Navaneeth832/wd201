@@ -27,7 +27,7 @@ http.createServer((req, res) => {
     case "/project":
       res.write(projectContent);
       break;
-    case "/project/registration":
+    case "/registration":
       res.write(registrationContent);
       break;
     default:
