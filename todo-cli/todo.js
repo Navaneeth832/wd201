@@ -31,9 +31,9 @@ const todoList = () => {
       if (todo.dueDate === today) {
         dueDate = "";
       }
-      output += `${status} ${todo.title} ${dueDate}`;
+      output += `${status} ${todo.title} ${dueDate}\n`;
     }
-    return output;
+    return output.trim();
   }
 
   return {
