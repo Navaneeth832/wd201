@@ -1,37 +1,38 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const minimist = require('minimist');
-
+const http = require("http");
+const fs = require("fs");
+const minimist = require("minimist");
 const args = minimist(process.argv.slice(2));
-const port = args.port || 3000;
 
-const server = http.createServer((req, res) => {
-  if (req.url === '/') {
-    serveFile('home.html', res);
-  } else if (req.url === '/projects') {
-    serveFile('project.html', res);
-  } else if (req.url === '/registration') {
-    serveFile('registration.html', res);
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('404 Not Found');
+let homeContent = "";
+let projectContent = "";
+let registrationContent = "";
+
+fs.readFile("home.html", (err, data) => {
+  if (err) throw err;
+  homeContent = data;
+});
+
+fs.readFile("project.html", (err, data) => {
+  if (err) throw err;
+  projectContent = data;
+});
+
+fs.readFile("registration.html", (err, data) => {
+  if (err) throw err;
+  registrationContent = data;
+});
+http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/html" });
+  switch (req.url) {
+    case "/projects":
+      res.write(projectContent);
+      break;
+    case "/registration":
+      res.write(registrationContent);
+      break;
+    default:
+      res.write(homeContent);
+      break;
   }
-});
-
-function serveFile(filename, res) {
-  const filePath = path.join(__dirname, filename);
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.writeHead(500);
-      res.end('Error loading file');
-    } else {
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(data);
-    }
-  });
-}
-
-server.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+  res.end();
+}).listen(args.port || 3000);
