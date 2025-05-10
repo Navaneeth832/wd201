@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            margin-bottom: 40px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group input[type="submit"] {
+            margin-top: 20px;
+        }
+        .terms-label {
+            font-size: 14px;
+            color: #555;
+        }
+        .terms-label a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .terms-label a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: red;
+            border: 1px solid red;
+            font-size: 12px;
+            display: none;
+        }
+        table {
+            width: 90%;
+            max-width: 700px;
+            margin-top: 30px;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="userform">
+            <h1>Registration Form</h1>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input required type="text" id="name" name="name">
+                <div class="error" id="nameError">Name is required.</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input required type="email" id="email" name="email">
+                <div class="error" id="emailError">A valid email is required.</div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input required type="password" id="password" name="password">
+                <div class="error" id="passwordError">Password is required.</div>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input required type="date" id="dob" name="dob">
+                <div class="error" id="dobError">Please enter your date of birth.</div>
+            </div>
+            <div class="form-group">
+                <input required type="checkbox" id="acceptTerms" name="terms">
+                <label for="terms" class="terms-label">
+                    I accept the <a href="#">Terms & Conditions</a>
+                </label>
+                <div class="error" id="termsError">You must accept the terms and conditions.</div>
+            </div>
+            <input type="submit" value="Register">
+        </form>
+        <div id="entries">
+            <h2>Entries</h2>
+            <table id="entriesTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Dob</th>
+                        <th>Accepted terms?</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div> 
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
