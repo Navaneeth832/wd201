@@ -21,18 +21,20 @@ fs.readFile("registration.html", (err, data) => {
   if (err) throw err;
   registrationContent = data;
 });
-http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "text/html" });
-  switch (req.url) {
-    case "/project":
-      res.write(projectContent);
-      break;
-    case "/registration":
-      res.write(registrationContent);
-      break;
-    default:
-      res.write(homeContent);
-      break;
-  }
-  res.end();
-}).listen(args.port || 3000);
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    switch (req.url) {
+      case "/project":
+        res.write(projectContent);
+        break;
+      case "/registration":
+        res.write(registrationContent);
+        break;
+      default:
+        res.write(homeContent);
+        break;
+    }
+    res.end();
+  })
+  .listen(args.port || 3000);
