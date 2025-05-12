@@ -1,5 +1,5 @@
-"use strict";
-const { Model, Op } = require("sequelize");
+'use strict';
+const { Model, Op } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
@@ -8,19 +8,19 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static async showList() {
-      console.log("My Todo list\n");
+      console.log('My Todo list\n');
 
-      console.log("Overdue");
+      console.log('Overdue');
       const overdueItems = await Todo.overdue();
       overdueItems.forEach((item) => console.log(item.displayableString()));
-      console.log("\n");
+      console.log('\n');
 
-      console.log("Due Today");
+      console.log('Due Today');
       const dueTodayItems = await Todo.dueToday();
       dueTodayItems.forEach((item) => console.log(item.displayableString()));
-      console.log("\n");
+      console.log('\n');
 
-      console.log("Due Later");
+      console.log('Due Later');
       const dueLaterItems = await Todo.dueLater();
       dueLaterItems.forEach((item) => console.log(item.displayableString()));
     }
@@ -29,20 +29,20 @@ module.exports = (sequelize, DataTypes) => {
       return await Todo.findAll({
         where: {
           dueDate: {
-            [Op.lt]: new Date().toISOString().split("T")[0],
+            [Op.lt]: new Date().toISOString().split('T')[0],
           },
           completed: false,
         },
-        order: [["id", "ASC"]],
+        order: [['id', 'ASC']],
       });
     }
 
     static async dueToday() {
       return await Todo.findAll({
         where: {
-          dueDate: new Date().toISOString().split("T")[0],
+          dueDate: new Date().toISOString().split('T')[0],
         },
-        order: [["id", "ASC"]],
+        order: [['id', 'ASC']],
       });
     }
 
@@ -50,11 +50,11 @@ module.exports = (sequelize, DataTypes) => {
       return await Todo.findAll({
         where: {
           dueDate: {
-            [Op.gt]: new Date().toISOString().split("T")[0],
+            [Op.gt]: new Date().toISOString().split('T')[0],
           },
           completed: false,
         },
-        order: [["id", "ASC"]],
+        order: [['id', 'ASC']],
       });
     }
 
@@ -67,8 +67,8 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     displayableString() {
-      const checkbox = this.completed ? "[x]" : "[ ]";
-      const today = new Date().toISOString().split("T")[0];
+      const checkbox = this.completed ? '[x]' : '[ ]';
+      const today = new Date().toISOString().split('T')[0];
       const showDate = this.dueDate !== today;
       let result = `${this.id}. ${checkbox} ${this.title.trim()}`;
       if (showDate) {
@@ -76,9 +76,6 @@ module.exports = (sequelize, DataTypes) => {
       }
       return result;
     }
-    
-    
-    
   }
 
   Todo.init(
@@ -89,7 +86,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Todo",
+      modelName: 'Todo',
     }
   );
 
