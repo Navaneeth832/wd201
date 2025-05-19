@@ -26,16 +26,15 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static async overdue() {
+      const today = new Date().toISOString().split("T")[0];
       return await Todo.findAll({
         where: {
-          dueDate: {
-            [Op.lt]: new Date().toISOString().split('T')[0],
-          },
-          completed: false,
+          dueDate: { [Op.lt]: today },
         },
-        order: [['id', 'ASC']],
+        order: [["id", "ASC"]],
       });
     }
+    
 
     static async dueToday() {
       return await Todo.findAll({
