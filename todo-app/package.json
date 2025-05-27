@@ -2,6 +2,7 @@
   "name": "todo-app",
   "version": "1.0.0",
   "main": "index.js",
+  "start:prod":"node index.js",
   "scripts": {
     "test": "jest",
     "prepare": "husky"
@@ -11,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
     "mysql2": "^3.14.1",
     "pg": "^8.16.0",

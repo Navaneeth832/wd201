@@ -1,15 +1,26 @@
 const express = require("express");
-const app = express();
+const path = require("path");
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
+
+const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
-app.get("/", function (request, response) {
-  response.send("Hello World");
+app.get("/", async function (request, response) {
+  try {
+    const todos = await Todo.findAll(); 
+    return response.render("index", { todos });
+  } catch (error) {
+    console.error(error);
+    return response.status(500).send("Error rendering todos");
+  }
 });
 
 app.get("/todos", async function (_request, response) {
-  console.log("Processing list of all Todos ...");
   try {
     const todos = await Todo.findAll(); 
     return response.json(todos); 
@@ -18,7 +29,6 @@ app.get("/todos", async function (_request, response) {
     return response.status(500).json({ error: "Failed to fetch todos" });
   }
 });
-
 
 app.get("/todos/:id", async function (request, response) {
   try {
@@ -52,7 +62,6 @@ app.put("/todos/:id/markAsCompleted", async function (request, response) {
 });
 
 app.delete("/todos/:id", async function (request, response) {
-  console.log("We have to delete a Todo with ID: ", request.params.id);
   try {
     const deletedCount = await Todo.destroy({
       where: {
@@ -70,6 +79,5 @@ app.delete("/todos/:id", async function (request, response) {
     return response.status(500).json({ error: "Failed to delete todo" });
   }
 });
-
 
 module.exports = app;
