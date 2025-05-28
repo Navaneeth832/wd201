@@ -2,8 +2,8 @@
   "name": "todo-app",
   "version": "1.0.0",
   "main": "index.js",
-  "start:prod": "node index.js",
   "scripts": {
+    "start:prod": "node index.js",
     "test": "jest",
     "prepare": "husky"
   },
@@ -26,3 +26,4 @@
     "supertest": "^7.1.1"
   }
 }
+
